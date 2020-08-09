@@ -67,7 +67,6 @@ router.post("/login", (req, res) => {
       .then(person => {
         if (!person) {
           return res
-            .status(404)
             .json({ success: false,token: "User not found with this email" });
         }
         bcrypt
@@ -93,7 +92,7 @@ router.post("/login", (req, res) => {
                 }
               );
             } else {
-              res.status(400).json({ success: false,token: "" });
+              res.json({ success: false,token: "" });
             }
           })
           .catch(err => console.log(err));
