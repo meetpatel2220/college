@@ -23,8 +23,7 @@ router.post("/register", (req, res) => {
         if(person){
 
             return res
-            .status(400)
-            .json({  success: false });
+              .json({  success: false });
 
         }else{
             const newPerson = new Person({
