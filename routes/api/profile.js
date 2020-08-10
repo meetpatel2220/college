@@ -17,7 +17,7 @@ const Profile = require("../../models/Profile");
 // @desc    route for UPDATING/SAVING personnal user profile
 // @access  PRIVATE
 router.post(
-  "/",
+  "/post",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const profileValues = {};
@@ -36,19 +36,19 @@ router.post(
             { $set: profileValues },
             { new: true }
           )
-            .then(profile => res.json(profile))
+            .then(profile => res.json({success: true}))
             .catch(err => console.log("problem in update" + err));
         } else {
           Profile.findOne({ mobileno: profileValues.mobileno })
             .then(profile => {
               //Username already exists
               if (profile) {
-                res.status(400).json({ username: "mobileno already exists" });
+                res.json({success: false});
               }
               //save user
               new Profile(profileValues)
                 .save()
-                .then(profile => res.json(profile))
+                .then(profile => res.json({success: true}))
                 .catch(err => console.log(err));
             })
             .catch(err => console.log(err));
@@ -65,7 +65,7 @@ router.post(
 // @desc    route for personnal user profile
 // @access  PRIVATE
 router.get(
-    "/",
+    "/get",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
       Profile.findOne({ user: req.user.id })
