@@ -13,7 +13,7 @@ const Profile = require("../../models/Profile");
 //@route    /api/tcp
 // @desc    route for showing all company
 // @access  PUBLIC
-router.get("/", (req, res) => {
+router.get("/get", (req, res) => {
     Company.find()
       .sort({ date: "desc" })
       .then(companies => res.json(companies))
@@ -39,7 +39,7 @@ router.get("/allprofile", (req, res) => {
 // @access  public
 
 router.post(
-    "/", (req, res) => {
+    "/post", (req, res) => {
 
       
                 const newCompany = new Company({
