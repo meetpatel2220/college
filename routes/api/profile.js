@@ -102,7 +102,7 @@ router.post(
           profile.request.unshift(newWork);
           profile
             .save()
-            .then(profile => res.json(profile))
+            .then(profile => res.json({success: true}))
             .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
